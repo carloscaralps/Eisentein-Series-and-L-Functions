@@ -1,5 +1,4 @@
-var('t')
-K.<h> = NumberField(t^2-29)
+K.<h> = NumberField(x^2-29)
 field_to_reals2 = K.real_embeddings()
 OK = K.ring_of_integers()
 disc = K.absolute_discriminant()
@@ -7,7 +6,7 @@ disc = K.absolute_discriminant()
 R=20
 err=500
 f=(3-h)/2
-eps=eps=(5+h)/2
+eps=(5+h)/2
 etha=eps^2
 
 def reduction(w1,w2):
