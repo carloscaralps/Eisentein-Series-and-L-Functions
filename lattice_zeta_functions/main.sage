@@ -1,8 +1,8 @@
 R=
 r=
-def decimal(eee):
+def decimal(dec):
    n=0
-   while(eee<=10^(-n)):
+   while(dec<=10^(-n)):
       n+=1
    return n
 
