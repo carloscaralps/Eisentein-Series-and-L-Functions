@@ -1,13 +1,25 @@
+R=
+r=
+def decimal(eee):
+   n=0
+   while(eee<=10^(-n)):
+      n+=1
+   return n
+
+err=decimal(exp(-2*pi*r*R).n())+30
+
 K.<h> = NumberField()
-field_to_reals2 = K.real_embeddings()
+field_to_reals2 = K.real_embeddings(err)
 OK = K.ring_of_integers()
 disc = K.absolute_discriminant()
 
-R=
-err=
 f=
 eps=
 etha=eps^2
+
+M=matrix([[-r,sqrt(r)*(sqrt(r^(-1)-1)-I)],[-r^2,r*(sqrt(r^(-2)-1)-I)]])
+alp=(M^(-1))[0][0]
+bet=(M^(-1))[0][1]
 
 def reduction(w1,w2):
     T, w = abs(w2/w1), w1
@@ -136,54 +148,55 @@ def bfu(d):
 def Rfu(r):
     suma=0
     for d in S2:
-        suma+=(bfu(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))*r).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d))*r)*exp(-2*pi*I*r*sqrt(r^(-1)-1)*(field_to_reals2[0](d)+field_to_reals2[1](d)))).n(digits = err)
+        suma+=(alp*bfu(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))*r).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d))*r)*exp(-2*pi*I*r*sqrt(r^(-1)-1)*(field_to_reals2[0](d)+field_to_reals2[1](d)))).n(digits = err)
+        suma+=(r*bet*bfu(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))*r^2).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d))*r^2)*exp(-2*pi*I*r^2*sqrt(r^(-2)-1)*(field_to_reals2[0](d)+field_to_reals2[1](d)))).n(digits = err)
     return -4*r*pi*I*sqrt(disc)*abs(field_to_reals2[0](f)*field_to_reals2[1](f))*suma
 
 coef=-1/(h^2*f)
 
 S3star=[]; n=0
-while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<R or abs(field_to_reals2[0](coef*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*etha^n*A_LAMBDA_tau[5]))<R:
+while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<r*R or abs(field_to_reals2[0](coef*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*etha^n*A_LAMBDA_tau[5]))<r*R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
-        while abs(field_to_reals2[0](coef*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*etha^n*a*(A_LAMBDA_tau[j])))<R:
+        while abs(field_to_reals2[0](coef*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
             T=coef*a*A_LAMBDA_tau[j]*etha^n+coef*b*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<R:
+            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<r*R:
                 S3star.append(T)
                 b=b+1
                 T=coef*a*A_LAMBDA_tau[j]*etha^n+coef*b*A_LAMBDA_tau[j+1]*etha^n
             a=a+1; b=0
     n=n+1
 n=-1
-while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<R or abs(field_to_reals2[0](coef*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*etha^n*A_LAMBDA_tau[5]))<R:
+while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<r*R or abs(field_to_reals2[0](coef*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*etha^n*A_LAMBDA_tau[5]))<r*R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
-        while abs(field_to_reals2[0](coef*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*etha^n*a*(A_LAMBDA_tau[j])))<R:
+        while abs(field_to_reals2[0](coef*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
             T=coef*a*A_LAMBDA_tau[j]*etha^n+coef*b*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<R:
+            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<r*R:
                 S3star.append(T)
                 b=b+1
                 T=coef*a*A_LAMBDA_tau[j]*etha^n+coef*b*A_LAMBDA_tau[j+1]*etha^n
             a=a+1; b=0
     n=n-1
 n=0
-while abs(field_to_reals2[0](coef*eps*etha^n))+abs(field_to_reals2[1](coef*eps*etha^n))<R or abs(field_to_reals2[0](coef*eps*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*eps*etha^n*A_LAMBDA_tau[5]))<R:
+while abs(field_to_reals2[0](coef*eps*etha^n))+abs(field_to_reals2[1](coef*eps*etha^n))<r*R or abs(field_to_reals2[0](coef*eps*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*eps*etha^n*A_LAMBDA_tau[5]))<r*R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
-        while abs(field_to_reals2[0](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))<R:
+        while abs(field_to_reals2[0](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
             T=coef*a*eps*A_LAMBDA_tau[j]*etha^n+coef*b*eps*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<R:
+            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<r*R:
                 S3star.append(-T)
                 b=b+1
                 T=coef*a*eps*A_LAMBDA_tau[j]*etha^n+coef*b*eps*A_LAMBDA_tau[j+1]*etha^n
             a=a+1; b=0
     n=n+1
 n=-1
-while abs(field_to_reals2[0](coef*etha^n*eps))+abs(field_to_reals2[1](coef*etha^n*eps))<R or abs(field_to_reals2[0](coef*eps*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*eps*etha^n*A_LAMBDA_tau[5]))<R:
+while abs(field_to_reals2[0](coef*etha^n*eps))+abs(field_to_reals2[1](coef*etha^n*eps))<r*R or abs(field_to_reals2[0](coef*eps*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*eps*etha^n*A_LAMBDA_tau[5]))<r*R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
-        while abs(field_to_reals2[0](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))<R:
+        while abs(field_to_reals2[0](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
             T=coef*a*eps*A_LAMBDA_tau[j]*etha^n+coef*b*eps*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<R:
+            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<r*R:
                 S3star.append(-T)
                 b=b+1
                 T=coef*a*eps*A_LAMBDA_tau[j]*etha^n+coef*b*eps*A_LAMBDA_tau[j+1]*etha^n
@@ -197,33 +210,29 @@ def bstar(d):
         d2=d/d1
         if d2 in (1/h)*OK:
             if field_to_reals2[0](d2)>0:
-                suma+=exp(2*pi*I*(field_to_reals2[0](d1)+field_to_reals2[1](d1)))
-                suma-=exp(2*pi*I*(field_to_reals2[0](-d1)+field_to_reals2[1](-d1)))
-                suma-=exp(2*pi*I*(field_to_reals2[0](eps*d1)+field_to_reals2[1](eps*d1)))
-                suma+=exp(2*pi*I*(field_to_reals2[0](-eps*d1)+field_to_reals2[1](-eps*d1)))
+                suma+=exp(2*pi*I*(field_to_reals2[0](d1)+field_to_reals2[1](d1))).n(digits = err)
+                suma-=exp(2*pi*I*(field_to_reals2[0](-d1)+field_to_reals2[1](-d1))).n(digits = err)
+                suma-=exp(2*pi*I*(field_to_reals2[0](eps*d1)+field_to_reals2[1](eps*d1))).n(digits = err)
+                suma+=exp(2*pi*I*(field_to_reals2[0](-eps*d1)+field_to_reals2[1](-eps*d1))).n(digits = err)
             if field_to_reals2[0](d2)<0:
-                suma-=exp(2*pi*I*(field_to_reals2[0](d1)+field_to_reals2[1](d1)))
-                suma+=exp(2*pi*I*(field_to_reals2[0](-d1)+field_to_reals2[1](-d1)))
-                suma+=exp(2*pi*I*(field_to_reals2[0](eps*d1)+field_to_reals2[1](eps*d1)))
-                suma-=exp(2*pi*I*(field_to_reals2[0](-eps*d1)+field_to_reals2[1](-eps*d1)))
+                suma-=exp(2*pi*I*(field_to_reals2[0](d1)+field_to_reals2[1](d1))).n(digits = err)
+                suma+=exp(2*pi*I*(field_to_reals2[0](-d1)+field_to_reals2[1](-d1))).n(digits = err)
+                suma+=exp(2*pi*I*(field_to_reals2[0](eps*d1)+field_to_reals2[1](eps*d1))).n(digits = err)
+                suma-=exp(2*pi*I*(field_to_reals2[0](-eps*d1)+field_to_reals2[1](-eps*d1))).n(digits = err)
     return suma
 
 def Rfustar(r):
     suma=0
     for d in S3star:
-        suma+=(bstar(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d)))*exp(2*pi*I*sqrt(r^(-1)-1)*(field_to_reals2[0](d)+field_to_reals2[1](d)))).n(digits = err)
+        suma+=(sqrt(r)*(sqrt(r^(-1)-1)-I)*alp*bstar(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d)))*exp(2*pi*I*sqrt(r^(-1)-1)*(field_to_reals2[0](d)+field_to_reals2[1](d)))).n(digits = err)
+        suma+=(r*(sqrt(r^(-2)-1)-I)*bet*bstar(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d)))*exp(2*pi*I*sqrt(r^(-2)-1)*(field_to_reals2[0](d)+field_to_reals2[1](d)))).n(digits = err)
     return (-4*pi*I/sqrt(disc))*suma
 
-def Tfun(r):
-    return Rfu(r)-sqrt(r)*(sqrt(r^(-1)-1)-I)*Rfustar(r)
-
 def zetafu(r):
-    M=matrix([[-r,sqrt(r)*(sqrt(r^(-1)-1)-I)],[-r^2,r*(sqrt(r^(-2)-1)-I)]])
-    W=matrix([[Tfun(r)],[Tfun(r^2)]])
-    return (M^(-1)*W)[0][0]/(abs(norm(f))*abs(disc))
+    return (Rfu(r)-Rfustar(r))/(abs(norm(f))*abs(disc))
 
-Z=zetafu(1/2).n(digits=err)
+Z=zetafu(r).n(digits=err)
 
-with open('shintani.txt','w') as f:
+with open('results.txt','w') as f:
 	sys.stdout=f
 	print(Z)
