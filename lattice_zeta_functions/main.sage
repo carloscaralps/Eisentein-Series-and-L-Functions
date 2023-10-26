@@ -8,7 +8,7 @@ def decimal(dec):
 
 err=decimal(exp(-2*pi*r*R).n())+30
 
-K.<h> = NumberField()
+K.<h> = NumberField(x^2-29)
 field_to_reals2 = K.real_embeddings(err)
 OK = K.ring_of_integers()
 disc = K.absolute_discriminant()
@@ -16,6 +16,7 @@ disc = K.absolute_discriminant()
 f=
 eps=
 etha=eps^2
+u=
 
 M=matrix([[-r,sqrt(r)*(sqrt(r^(-1)-1)-I)],[-r^2,r*(sqrt(r^(-2)-1)-I)]])
 alp=(M^(-1))[0][0]
@@ -120,25 +121,25 @@ def bfu(d):
     for A in divisors(d*OK):
         D1=reduceshint(A.gens_reduced()[0])
         d2=d/D1
-        if d2+1 in f*OK:
+        if d2+u in f*OK:
             if field_to_reals2[0](d2)<0:
                 suma-=1
             else:
                 suma+=1
         d2=-d/D1
-        if d2+1 in f*OK:
+        if d2+u in f*OK:
             if field_to_reals2[0](d2)<0:
                 suma-=1
             else:
                 suma+=1
         d2=d/(eps*D1)
-        if d2+1 in f*OK:
+        if d2+u in f*OK:
             if field_to_reals2[0](d2)<0:
                 suma-=1
             else:
                 suma+=1
         d2=-d/(eps*D1)
-        if d2+1 in f*OK:
+        if d2+u in f*OK:
             if field_to_reals2[0](d2)<0:
                 suma-=1
             else:
@@ -210,15 +211,15 @@ def bstar(d):
         d2=d/d1
         if d2 in (1/h)*OK:
             if field_to_reals2[0](d2)>0:
-                suma+=exp(2*pi*I*(field_to_reals2[0](d1)+field_to_reals2[1](d1))).n(digits = err)
-                suma-=exp(2*pi*I*(field_to_reals2[0](-d1)+field_to_reals2[1](-d1))).n(digits = err)
-                suma-=exp(2*pi*I*(field_to_reals2[0](eps*d1)+field_to_reals2[1](eps*d1))).n(digits = err)
-                suma+=exp(2*pi*I*(field_to_reals2[0](-eps*d1)+field_to_reals2[1](-eps*d1))).n(digits = err)
+                suma+=exp(2*pi*I*(field_to_reals2[0](u*d1)+field_to_reals2[1](u*d1))).n(digits = err)
+                suma-=exp(2*pi*I*(field_to_reals2[0](-u*d1)+field_to_reals2[1](-u*d1))).n(digits = err)
+                suma-=exp(2*pi*I*(field_to_reals2[0](u*eps*d1)+field_to_reals2[1](u*eps*d1))).n(digits = err)
+                suma+=exp(2*pi*I*(field_to_reals2[0](-u*eps*d1)+field_to_reals2[1](-u*eps*d1))).n(digits = err)
             if field_to_reals2[0](d2)<0:
-                suma-=exp(2*pi*I*(field_to_reals2[0](d1)+field_to_reals2[1](d1))).n(digits = err)
-                suma+=exp(2*pi*I*(field_to_reals2[0](-d1)+field_to_reals2[1](-d1))).n(digits = err)
-                suma+=exp(2*pi*I*(field_to_reals2[0](eps*d1)+field_to_reals2[1](eps*d1))).n(digits = err)
-                suma-=exp(2*pi*I*(field_to_reals2[0](-eps*d1)+field_to_reals2[1](-eps*d1))).n(digits = err)
+                suma-=exp(2*pi*I*(field_to_reals2[0](u*d1)+field_to_reals2[1](u*d1))).n(digits = err)
+                suma+=exp(2*pi*I*(field_to_reals2[0](-u*d1)+field_to_reals2[1](-u*d1))).n(digits = err)
+                suma+=exp(2*pi*I*(field_to_reals2[0](u*eps*d1)+field_to_reals2[1](u*eps*d1))).n(digits = err)
+                suma-=exp(2*pi*I*(field_to_reals2[0](-u*eps*d1)+field_to_reals2[1](-u*eps*d1))).n(digits = err)
     return suma
 
 def Rfustar(r):
@@ -233,6 +234,7 @@ def zetafu(r):
 
 Z=zetafu(r).n(digits=err)
 
-with open('results.txt','w') as f:
+with open('second_invariant.txt','w') as f:
 	sys.stdout=f
 	print(Z)
+	print(exp((-I*sqrt(29)*Z/(4*pi)).n(digits=err)))
