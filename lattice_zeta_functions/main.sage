@@ -51,9 +51,10 @@ while Ak_moins_1 != etha^(-1):
     A_LAMBDA_tau.append(Ak) 
     Ak_plus_1 = bk_liste[k]*Ak - Ak_moins_1
     Ak_moins_1 = Ak; Ak = Ak_plus_1; k += 1
+N=len(A_LAMBDA_tau)-1
 
 S2=[]; n=0; 
-while abs(field_to_reals2[0](etha^n))+abs(field_to_reals2[1](etha^n))<R or abs(field_to_reals2[0](etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](etha^n*A_LAMBDA_tau[5]))<R:
+while abs(field_to_reals2[0](etha^n))+abs(field_to_reals2[1](etha^n))<R or abs(field_to_reals2[0](etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](etha^n*A_LAMBDA_tau[N]))<R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
         while abs(field_to_reals2[0](etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](etha^n*a*(A_LAMBDA_tau[j])))<R:
@@ -65,7 +66,7 @@ while abs(field_to_reals2[0](etha^n))+abs(field_to_reals2[1](etha^n))<R or abs(f
             a=a+1; b=0
     n=n+1
 n=-1
-while abs(field_to_reals2[0](etha^n))+abs(field_to_reals2[1](etha^n))<R or abs(field_to_reals2[0](etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](etha^n*A_LAMBDA_tau[5]))<R:
+while abs(field_to_reals2[0](etha^n))+abs(field_to_reals2[1](etha^n))<R or abs(field_to_reals2[0](etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](etha^n*A_LAMBDA_tau[N]))<R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
         while abs(field_to_reals2[0](etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](etha^n*a*(A_LAMBDA_tau[j])))<R:
@@ -77,7 +78,7 @@ while abs(field_to_reals2[0](etha^n))+abs(field_to_reals2[1](etha^n))<R or abs(f
             a=a+1; b=0
     n=n-1
 n=0
-while abs(field_to_reals2[0](eps*etha^n))+abs(field_to_reals2[1](eps*etha^n))<R or abs(field_to_reals2[0](eps*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](eps*etha^n*A_LAMBDA_tau[5]))<R:
+while abs(field_to_reals2[0](eps*etha^n))+abs(field_to_reals2[1](eps*etha^n))<R or abs(field_to_reals2[0](eps*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](eps*etha^n*A_LAMBDA_tau[N]))<R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
         while abs(field_to_reals2[0](eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](eps*etha^n*a*(A_LAMBDA_tau[j])))<R:
@@ -89,7 +90,7 @@ while abs(field_to_reals2[0](eps*etha^n))+abs(field_to_reals2[1](eps*etha^n))<R 
             a=a+1; b=0
     n=n+1
 n=-1
-while abs(field_to_reals2[0](etha^n*eps))+abs(field_to_reals2[1](etha^n*eps))<R or abs(field_to_reals2[0](eps*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](eps*etha^n*A_LAMBDA_tau[5]))<R:
+while abs(field_to_reals2[0](etha^n*eps))+abs(field_to_reals2[1](etha^n*eps))<R or abs(field_to_reals2[0](eps*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](eps*etha^n*A_LAMBDA_tau[N]))<R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
         while abs(field_to_reals2[0](eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](eps*etha^n*a*(A_LAMBDA_tau[j])))<R:
@@ -156,7 +157,7 @@ def Rfu(r):
 coef=-1/(h^2*f)
 
 S3star=[]; n=0
-while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<r*R or abs(field_to_reals2[0](coef*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*etha^n*A_LAMBDA_tau[5]))<r*R:
+while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<r*R or abs(field_to_reals2[0](coef*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](coef*etha^n*A_LAMBDA_tau[N]))<r*R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
         while abs(field_to_reals2[0](coef*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
@@ -168,7 +169,7 @@ while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<
             a=a+1; b=0
     n=n+1
 n=-1
-while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<r*R or abs(field_to_reals2[0](coef*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*etha^n*A_LAMBDA_tau[5]))<r*R:
+while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<r*R or abs(field_to_reals2[0](coef*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](coef*etha^n*A_LAMBDA_tau[N]))<r*R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
         while abs(field_to_reals2[0](coef*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
@@ -180,7 +181,7 @@ while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<
             a=a+1; b=0
     n=n-1
 n=0
-while abs(field_to_reals2[0](coef*eps*etha^n))+abs(field_to_reals2[1](coef*eps*etha^n))<r*R or abs(field_to_reals2[0](coef*eps*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*eps*etha^n*A_LAMBDA_tau[5]))<r*R:
+while abs(field_to_reals2[0](coef*eps*etha^n))+abs(field_to_reals2[1](coef*eps*etha^n))<r*R or abs(field_to_reals2[0](coef*eps*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](coef*eps*etha^n*A_LAMBDA_tau[N]))<r*R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
         while abs(field_to_reals2[0](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
@@ -192,7 +193,7 @@ while abs(field_to_reals2[0](coef*eps*etha^n))+abs(field_to_reals2[1](coef*eps*e
             a=a+1; b=0
     n=n+1
 n=-1
-while abs(field_to_reals2[0](coef*etha^n*eps))+abs(field_to_reals2[1](coef*etha^n*eps))<r*R or abs(field_to_reals2[0](coef*eps*etha^n*A_LAMBDA_tau[5]))+abs(field_to_reals2[1](coef*eps*etha^n*A_LAMBDA_tau[5]))<r*R:
+while abs(field_to_reals2[0](coef*etha^n*eps))+abs(field_to_reals2[1](coef*etha^n*eps))<r*R or abs(field_to_reals2[0](coef*eps*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](coef*eps*etha^n*A_LAMBDA_tau[N]))<r*R:
     for j in range(0,len(A_LAMBDA_tau)-1):
         a=1; b=0
         while abs(field_to_reals2[0](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
