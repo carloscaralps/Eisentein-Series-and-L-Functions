@@ -8,15 +8,15 @@ def decimal(dec):
 
 err=decimal(exp(-2*pi*r*R).n())+30
 
-K.<h> = NumberField(x^2-29)
+K.<h> = NumberField()
 field_to_reals2 = K.real_embeddings(err)
 OK = K.ring_of_integers()
 disc = K.absolute_discriminant()
 
 f=
+u=
 eps=
 etha=eps^2
-u=
 
 M=matrix([[-r,sqrt(r)*(sqrt(r^(-1)-1)-I)],[-r^2,r*(sqrt(r^(-2)-1)-I)]])
 alp=(M^(-1))[0][0]
