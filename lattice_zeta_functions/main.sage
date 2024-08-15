@@ -121,7 +121,7 @@ def reduceshint(mu):
             mu=-eps*mu
     while 1>field_to_reals2[0](mu)/field_to_reals2[1](mu):
         mu=mu/etha
-    while field_to_reals2[0](-5/2*h + 27/2)/field_to_reals2[1](-5/2*h + 27/2)<=field_to_reals2[0](mu)/field_to_reals2[1](mu):
+    while field_to_reals2[0](A_LAMBDA_tau[N])/field_to_reals2[1](A_LAMBDA_tau[N])<=field_to_reals2[0](mu)/field_to_reals2[1](mu):
         mu=etha*mu
     return mu
 
