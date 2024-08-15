@@ -1,5 +1,7 @@
 R=
 r=
+p=
+
 def decimal(dec):
    n=0
    while(dec<=10^(-n)):
@@ -8,7 +10,7 @@ def decimal(dec):
 
 err=decimal(exp(-2*pi*r*R).n())+30
 
-K.<h> = NumberField()
+K.<h> = NumberField(p)
 field_to_reals2 = K.real_embeddings(err)
 OK = K.ring_of_integers()
 disc = K.absolute_discriminant()
@@ -53,49 +55,52 @@ while Ak_moins_1 != etha^(-1):
     Ak_moins_1 = Ak; Ak = Ak_plus_1; k += 1
 N=len(A_LAMBDA_tau)-1
 
+def abstr(alpha):
+    return abs(field_to_reals2[0](alpha))+abs(field_to_reals2[1](alpha))
+
 S2=[]; n=0; 
-while abs(field_to_reals2[0](etha^n))+abs(field_to_reals2[1](etha^n))<R or abs(field_to_reals2[0](etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](etha^n*A_LAMBDA_tau[N]))<R:
-    for j in range(0,len(A_LAMBDA_tau)-1):
+while abstr(etha^n)<R or abstr(etha^n*A_LAMBDA_tau[n])<R:
+    for j in range(0,N):
         a=1; b=0
-        while abs(field_to_reals2[0](etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](etha^n*a*(A_LAMBDA_tau[j])))<R:
+        while abstr(etha^n*a*A_LAMBDA_tau[j])<R:
             T=a*A_LAMBDA_tau[j]*etha^n+b*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<R:
+            while abstr(T)<R:
                 S2.append(-T)
                 b=b+1
                 T=a*A_LAMBDA_tau[j]*etha^n+b*A_LAMBDA_tau[j+1]*etha^n
             a=a+1; b=0
     n=n+1
 n=-1
-while abs(field_to_reals2[0](etha^n))+abs(field_to_reals2[1](etha^n))<R or abs(field_to_reals2[0](etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](etha^n*A_LAMBDA_tau[N]))<R:
-    for j in range(0,len(A_LAMBDA_tau)-1):
+while abstr(etha^n)<R or abstr(etha^n*A_LAMBDA_tau[n])<R:
+    for j in range(0,N):
         a=1; b=0
-        while abs(field_to_reals2[0](etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](etha^n*a*(A_LAMBDA_tau[j])))<R:
+        while abstr(etha^n*a*A_LAMBDA_tau[j])<R:
             T=a*A_LAMBDA_tau[j]*etha^n+b*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<R:
+            while abstr(T)<R:
                 S2.append(-T)
                 b=b+1
                 T=a*A_LAMBDA_tau[j]*etha^n+b*A_LAMBDA_tau[j+1]*etha^n
             a=a+1; b=0
     n=n-1
 n=0
-while abs(field_to_reals2[0](eps*etha^n))+abs(field_to_reals2[1](eps*etha^n))<R or abs(field_to_reals2[0](eps*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](eps*etha^n*A_LAMBDA_tau[N]))<R:
-    for j in range(0,len(A_LAMBDA_tau)-1):
+while abstr(eps*etha^n)<R or abstr(eps*etha^n*A_LAMBDA_tau[n])<R:
+    for j in range(0,N):
         a=1; b=0
-        while abs(field_to_reals2[0](eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](eps*etha^n*a*(A_LAMBDA_tau[j])))<R:
+        while abstr(eps*etha^n*a*A_LAMBDA_tau[j])<R:
             T=a*eps*A_LAMBDA_tau[j]*etha^n+b*eps*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<R:
+            while abstr(T)<R:
                 S2.append(T)
                 b=b+1
                 T=a*eps*A_LAMBDA_tau[j]*etha^n+b*eps*A_LAMBDA_tau[j+1]*etha^n
             a=a+1; b=0
     n=n+1
 n=-1
-while abs(field_to_reals2[0](etha^n*eps))+abs(field_to_reals2[1](etha^n*eps))<R or abs(field_to_reals2[0](eps*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](eps*etha^n*A_LAMBDA_tau[N]))<R:
-    for j in range(0,len(A_LAMBDA_tau)-1):
+while abstr(eps*etha^n)<R or abstr(eps*etha^n*A_LAMBDA_tau[n])<R:
+    for j in range(0,N):
         a=1; b=0
-        while abs(field_to_reals2[0](eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](eps*etha^n*a*(A_LAMBDA_tau[j])))<R:
+        while abstr(eps*etha^n*a*A_LAMBDA_tau[j])<R:
             T=a*eps*A_LAMBDA_tau[j]*etha^n+b*eps*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<R:
+            while abstr(T)<R:
                 S2.append(T)
                 b=b+1
                 T=a*eps*A_LAMBDA_tau[j]*etha^n+b*eps*A_LAMBDA_tau[j+1]*etha^n
@@ -119,28 +124,28 @@ def reduceshint(mu):
 
 def bfu(d):
     suma=0
-    for A in divisors(d*OK):
+    for A in divisors(K.ideal(d)):
         D1=reduceshint(A.gens_reduced()[0])
         d2=d/D1
-        if d2+u in f*OK:
+        if (d2+u)/f in OK:
             if field_to_reals2[0](d2)<0:
                 suma-=1
             else:
                 suma+=1
         d2=-d/D1
-        if d2+u in f*OK:
+        if (d2+u)/f in OK:
             if field_to_reals2[0](d2)<0:
                 suma-=1
             else:
                 suma+=1
         d2=d/(eps*D1)
-        if d2+u in f*OK:
+        if (d2+u)/f in OK:
             if field_to_reals2[0](d2)<0:
                 suma-=1
             else:
                 suma+=1
         d2=-d/(eps*D1)
-        if d2+u in f*OK:
+        if (d2+u)/f in OK:
             if field_to_reals2[0](d2)<0:
                 suma-=1
             else:
@@ -157,48 +162,48 @@ def Rfu(r):
 coef=-1/(h^2*f)
 
 S3star=[]; n=0
-while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<r*R or abs(field_to_reals2[0](coef*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](coef*etha^n*A_LAMBDA_tau[N]))<r*R:
-    for j in range(0,len(A_LAMBDA_tau)-1):
+while abstr(coef*etha^n)<r*R or abstr(coef*etha^n*A_LAMBDA_tau[N])<r*R:
+    for j in range(0,N):
         a=1; b=0
-        while abs(field_to_reals2[0](coef*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
+        while abstr(coef*etha^n*a*A_LAMBDA_tau[j])<r*R:
             T=coef*a*A_LAMBDA_tau[j]*etha^n+coef*b*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<r*R:
+            while abstr(T)<r*R:
                 S3star.append(T)
                 b=b+1
                 T=coef*a*A_LAMBDA_tau[j]*etha^n+coef*b*A_LAMBDA_tau[j+1]*etha^n
             a=a+1; b=0
     n=n+1
 n=-1
-while abs(field_to_reals2[0](coef*etha^n))+abs(field_to_reals2[1](coef*etha^n))<r*R or abs(field_to_reals2[0](coef*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](coef*etha^n*A_LAMBDA_tau[N]))<r*R:
-    for j in range(0,len(A_LAMBDA_tau)-1):
+while abstr(coef*etha^n)<r*R or abstr(coef*etha^n*A_LAMBDA_tau[N])<r*R:
+    for j in range(0,N):
         a=1; b=0
-        while abs(field_to_reals2[0](coef*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
+        while abstr(coef*etha^n*a*A_LAMBDA_tau[j])<r*R:
             T=coef*a*A_LAMBDA_tau[j]*etha^n+coef*b*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<r*R:
+            while abstr(T)<r*R:
                 S3star.append(T)
                 b=b+1
                 T=coef*a*A_LAMBDA_tau[j]*etha^n+coef*b*A_LAMBDA_tau[j+1]*etha^n
             a=a+1; b=0
     n=n-1
 n=0
-while abs(field_to_reals2[0](coef*eps*etha^n))+abs(field_to_reals2[1](coef*eps*etha^n))<r*R or abs(field_to_reals2[0](coef*eps*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](coef*eps*etha^n*A_LAMBDA_tau[N]))<r*R:
-    for j in range(0,len(A_LAMBDA_tau)-1):
+while abstr(coef*eps*etha^n)<r*R or abstr(coef*eps*etha^n*A_LAMBDA_tau[N])<r*R:
+    for j in range(0,N):
         a=1; b=0
-        while abs(field_to_reals2[0](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
+        while abstr(coef*eps*etha^n*a*A_LAMBDA_tau[j])<r*R:
             T=coef*a*eps*A_LAMBDA_tau[j]*etha^n+coef*b*eps*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<r*R:
+            while abstr(T)<r*R:
                 S3star.append(-T)
                 b=b+1
                 T=coef*a*eps*A_LAMBDA_tau[j]*etha^n+coef*b*eps*A_LAMBDA_tau[j+1]*etha^n
             a=a+1; b=0
     n=n+1
 n=-1
-while abs(field_to_reals2[0](coef*etha^n*eps))+abs(field_to_reals2[1](coef*etha^n*eps))<r*R or abs(field_to_reals2[0](coef*eps*etha^n*A_LAMBDA_tau[N]))+abs(field_to_reals2[1](coef*eps*etha^n*A_LAMBDA_tau[N]))<r*R:
-    for j in range(0,len(A_LAMBDA_tau)-1):
+while abstr(coef*eps*etha^n)<r*R or abstr(coef*eps*etha^n*A_LAMBDA_tau[N])<r*R:
+    for j in range(0,N):
         a=1; b=0
-        while abs(field_to_reals2[0](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))+abs(field_to_reals2[1](coef*eps*etha^n*a*(A_LAMBDA_tau[j])))<r*R:
+        while abstr(coef*eps*etha^n*a*A_LAMBDA_tau[j])<r*R:
             T=coef*a*eps*A_LAMBDA_tau[j]*etha^n+coef*b*eps*A_LAMBDA_tau[j+1]*etha^n
-            while abs(field_to_reals2[0](T))+abs(field_to_reals2[1](T))<r*R:
+            while abstr(T)<r*R:
                 S3star.append(-T)
                 b=b+1
                 T=coef*a*eps*A_LAMBDA_tau[j]*etha^n+coef*b*eps*A_LAMBDA_tau[j+1]*etha^n
@@ -207,10 +212,10 @@ while abs(field_to_reals2[0](coef*etha^n*eps))+abs(field_to_reals2[1](coef*etha^
 
 def bstar(d):
     suma=0
-    for A in divisors(f*h^2*d*OK):
+    for A in divisors(K.ideal(f*h^2*d)):
         d1=reduceshint((A.gens_reduced()[0]))/(f*h)
         d2=d/d1
-        if d2 in (1/h)*OK:
+        if d2*h in OK:
             if field_to_reals2[0](d2)>0:
                 suma+=exp(2*pi*I*(field_to_reals2[0](u*d1)+field_to_reals2[1](u*d1))).n(digits = err)
                 suma-=exp(2*pi*I*(field_to_reals2[0](-u*d1)+field_to_reals2[1](-u*d1))).n(digits = err)
@@ -235,7 +240,7 @@ def zetafu(r):
 
 Z=zetafu(r).n(digits=err)
 
-with open('second_invariant.txt','w') as f:
+with open('5_shintani.txt','w') as f:
 	sys.stdout=f
 	print(Z)
 	print(exp((-I*sqrt(29)*Z/(4*pi)).n(digits=err)))
