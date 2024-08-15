@@ -160,7 +160,7 @@ def Rfu(r):
     for d in S2:
         suma+=(alp*bfu(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))*r).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d))*r)*exp(-2*pi*I*r*sqrt(r^(-1)-1)*tr(d))).n(digits = err)
         suma+=(r*bet*bfu(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))*r^2).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d))*r^2)*exp(-2*pi*I*r^2*sqrt(r^(-2)-1)*tr(d))).n(digits = err)
-    return -4*r*pi*I*sqrt(disc)*abs(norm(f))*suma
+    return -4*r*pi*I*sqrt(disc)*abs(field_to_reals2[0](f)*field_to_reals2[1](f))*suma
 
 coef=-1/(h^2*f)
 
