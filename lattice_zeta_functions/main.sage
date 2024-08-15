@@ -55,6 +55,9 @@ while Ak_moins_1 != etha^(-1):
     Ak_moins_1 = Ak; Ak = Ak_plus_1; k += 1
 N=len(A_LAMBDA_tau)-1
 
+def tr(alpha):
+    return field_to_reals2[0](alpha)+field_to_reals2[1](alpha)
+
 def abstr(alpha):
     return abs(field_to_reals2[0](alpha))+abs(field_to_reals2[1](alpha))
 
@@ -155,8 +158,8 @@ def bfu(d):
 def Rfu(r):
     suma=0
     for d in S2:
-        suma+=(alp*bfu(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))*r).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d))*r)*exp(-2*pi*I*r*sqrt(r^(-1)-1)*(field_to_reals2[0](d)+field_to_reals2[1](d)))).n(digits = err)
-        suma+=(r*bet*bfu(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))*r^2).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d))*r^2)*exp(-2*pi*I*r^2*sqrt(r^(-2)-1)*(field_to_reals2[0](d)+field_to_reals2[1](d)))).n(digits = err)
+        suma+=(alp*bfu(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))*r).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d))*r)*exp(-2*pi*I*r*sqrt(r^(-1)-1)*tr(d))).n(digits = err)
+        suma+=(r*bet*bfu(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))*r^2).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d))*r^2)*exp(-2*pi*I*r^2*sqrt(r^(-2)-1)*tr(d))).n(digits = err)
     return -4*r*pi*I*sqrt(disc)*abs(field_to_reals2[0](f)*field_to_reals2[1](f))*suma
 
 coef=-1/(h^2*f)
@@ -217,22 +220,22 @@ def bstar(d):
         d2=d/d1
         if d2*h in OK:
             if field_to_reals2[0](d2)>0:
-                suma+=exp(2*pi*I*(field_to_reals2[0](u*d1)+field_to_reals2[1](u*d1))).n(digits = err)
-                suma-=exp(2*pi*I*(field_to_reals2[0](-u*d1)+field_to_reals2[1](-u*d1))).n(digits = err)
-                suma-=exp(2*pi*I*(field_to_reals2[0](u*eps*d1)+field_to_reals2[1](u*eps*d1))).n(digits = err)
-                suma+=exp(2*pi*I*(field_to_reals2[0](-u*eps*d1)+field_to_reals2[1](-u*eps*d1))).n(digits = err)
+                suma+=exp(2*pi*I*tr(u*d1)).n(digits = err)
+                suma-=exp(2*pi*I*tr(-u*d1)).n(digits = err)
+                suma-=exp(2*pi*I*tr(u*eps*d1)).n(digits = err)
+                suma+=exp(2*pi*I*tr(-u*eps*d1)).n(digits = err)
             if field_to_reals2[0](d2)<0:
-                suma-=exp(2*pi*I*(field_to_reals2[0](u*d1)+field_to_reals2[1](u*d1))).n(digits = err)
-                suma+=exp(2*pi*I*(field_to_reals2[0](-u*d1)+field_to_reals2[1](-u*d1))).n(digits = err)
-                suma+=exp(2*pi*I*(field_to_reals2[0](u*eps*d1)+field_to_reals2[1](u*eps*d1))).n(digits = err)
-                suma-=exp(2*pi*I*(field_to_reals2[0](-u*eps*d1)+field_to_reals2[1](-u*eps*d1))).n(digits = err)
+                suma-=exp(2*pi*I*tr(u*d1)).n(digits = err)
+                suma+=exp(2*pi*I*tr(-u*d1)).n(digits = err)
+                suma+=exp(2*pi*I*tr(u*eps*d1)).n(digits = err)
+                suma-=exp(2*pi*I*tr(-u*eps*d1)).n(digits = err)
     return suma
 
 def Rfustar(r):
     suma=0
     for d in S3star:
-        suma+=(sqrt(r)*(sqrt(r^(-1)-1)-I)*alp*bstar(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d)))*exp(2*pi*I*sqrt(r^(-1)-1)*(field_to_reals2[0](d)+field_to_reals2[1](d)))).n(digits = err)
-        suma+=(r*(sqrt(r^(-2)-1)-I)*bet*bstar(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d)))*exp(2*pi*I*sqrt(r^(-2)-1)*(field_to_reals2[0](d)+field_to_reals2[1](d)))).n(digits = err)
+        suma+=(sqrt(r)*(sqrt(r^(-1)-1)-I)*alp*bstar(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d)))*exp(2*pi*I*sqrt(r^(-1)-1)*tr(d))).n(digits = err)
+        suma+=(r*(sqrt(r^(-2)-1)-I)*bet*bstar(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d)))*exp(2*pi*I*sqrt(r^(-2)-1)*tr(d))).n(digits = err)
     return (-4*pi*I/sqrt(disc))*suma
 
 def zetafu(r):
