@@ -160,7 +160,7 @@ def Rfu(r):
     for d in S2:
         suma+=(alp*bfu(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))*r).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d))*r)*exp(-2*pi*I*r*sqrt(r^(-1)-1)*tr(d))).n(digits = err)
         suma+=(r*bet*bfu(d)*bessel_K(0,(2*pi*abs(field_to_reals2[1](d))*r^2).n(digits=err))*exp(-2*pi*abs(field_to_reals2[0](d))*r^2)*exp(-2*pi*I*r^2*sqrt(r^(-2)-1)*tr(d))).n(digits = err)
-    return -4*r*pi*I*sqrt(disc)*abs(field_to_reals2[0](f)*field_to_reals2[1](f))*suma
+    return -4*r*pi*I*sqrt(disc)*abs(norm(f))*suma
 
 coef=-1/(h^2*f)
 
@@ -220,15 +220,11 @@ def bstar(d):
         d2=d/d1
         if d2*h in OK:
             if field_to_reals2[0](d2)>0:
-                suma+=exp(2*pi*I*tr(u*d1)).n(digits = err)
-                suma-=exp(2*pi*I*tr(-u*d1)).n(digits = err)
-                suma-=exp(2*pi*I*tr(u*eps*d1)).n(digits = err)
-                suma+=exp(2*pi*I*tr(-u*eps*d1)).n(digits = err)
+                suma+=(2*I*sin(2*pi*tr(u*d1))).n(digits = err)
+                suma-=(2*I*sin(2*pi*tr(u*eps*d1))).n(digits = err)
             if field_to_reals2[0](d2)<0:
-                suma-=exp(2*pi*I*tr(u*d1)).n(digits = err)
-                suma+=exp(2*pi*I*tr(-u*d1)).n(digits = err)
-                suma+=exp(2*pi*I*tr(u*eps*d1)).n(digits = err)
-                suma-=exp(2*pi*I*tr(-u*eps*d1)).n(digits = err)
+                suma-=(2*I*sin(2*pi*tr(u*d1))).n(digits = err)
+                suma+=(2*I*sin(2*pi*tr(u*eps*d1))).n(digits = err)
     return suma
 
 def Rfustar(r):
@@ -243,7 +239,7 @@ def zetafu(r):
 
 Z=zetafu(r).n(digits=err)
 
-with open('5_shintani.txt','w') as f:
+with open('main.txt','w') as f:
 	sys.stdout=f
 	print(Z)
 	print(exp((-I*sqrt(29)*Z/(4*pi)).n(digits=err)))
